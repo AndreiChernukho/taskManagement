@@ -1,0 +1,53 @@
+.button {
+    border: 1px solid #bfc8cc; /* Рамка */
+    border-radius: 10px;
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    font: 400 14px Arial;
+    width: 100px;
+    text-align: center;
+}
+
+.button:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #c9c9af); /* Градиент */
+}
+
+.button a {
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+    font: 400 14px Arial;
+    width: 80px;
+    text-align: center;
+    padding: 5px 15px; /* Поля */
+}
+
+.error {
+    color: #aa0000;
+}
+
+table {
+    border: 2px solid grey;
+}
+
+.status {
+    height: 36px;
+    width: 36px;
+}
+
+.DELAYED {
+    background: #000000 url(images/cherry_122993.png) no-repeat; /* Цвет фона и путь к графическому файлу */
+}
+
+.COMPLETED {
+    background: #000000 url(images/lemon_122997.png) no-repeat;
+}
+
+.OPEN {
+    background: #000000 url(images/strawberry_123001.png) no-repeat;
+}
+
+.INPROCESS {
+    background: #000000 url(images/orange_122998.png) no-repeat;
+}
