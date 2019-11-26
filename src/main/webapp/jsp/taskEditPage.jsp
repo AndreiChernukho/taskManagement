@@ -15,6 +15,10 @@
     <label>Название</label>
     <input type="text" name="name" value="${task==null ?"":task.getName()}" required>
 
+    <label>Дата</label>
+    <input type="date"  name="date" value="YYYY-MM-DD" required />
+
+
     <label>Статус</label>
     <select  name="status" >
         <c:forEach var="statusName" items="${TaskStatus.values()}">
@@ -44,4 +48,3 @@
 
 </body>
 </html>
-

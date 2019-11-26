@@ -2,12 +2,13 @@ package setting;
 
 import common.ConnectionService;
 import common.GeneralRepository;
-import task.TaskStatus;
 
 import java.sql.*;
 import java.util.List;
 
-
+/**
+ * Репозиторий для работы с настройками.
+ */
 public class SettingRepository implements GeneralRepository<Setting> {
 
     @Override
@@ -26,7 +27,6 @@ public class SettingRepository implements GeneralRepository<Setting> {
         }
     }
 
-
     @Override
     public List getList() {
         return null;
@@ -37,9 +37,9 @@ public class SettingRepository implements GeneralRepository<Setting> {
         Setting setting = null;
         String query = "SELECT url_server, max_line, number_of_days FROM setting";
 
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             Statement statement = connection.createStatement()) { //получили обьект, чтобы делать запросы
-            ResultSet resultSet = statement.executeQuery(query); // получили ответ на запрос в виде резалт сета
+        try (Connection connection = ConnectionService.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 String url_server = resultSet.getString("url_server");
                 int max_line = resultSet.getInt("max_line");

@@ -1,16 +1,39 @@
 package employee;
 
+/**
+ * Сотрудники.
+ */
 public class Employee {
+
+    /**
+     * Идентификатор
+     */
     private String id;
+
+    /**
+     * Фамилия
+     */
     private String surname;
+
+    /**
+     * Имя
+     */
     private String name;
+
+    /**
+     * Отчество
+     */
     private String patronymic;
+
+    /**
+     * Должность
+     */
     private String position;
 
     /**
      * Конструктор.
      *
-     * @param id индификатор
+     * @param id идентификатор
      * @param surname фамилия
      * @param name имя
      * @param patronymic отчество

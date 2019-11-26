@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Репозиторий для работы с проектами.
+ */
 public class ProjectRepository implements GeneralRepository<Project> {
 
     @Override
@@ -16,36 +19,6 @@ public class ProjectRepository implements GeneralRepository<Project> {
             insert(project);
         } else {
             update(project);
-        }
-    }
-
-    private void insert(Project project) {
-        String query = "INSERT INTO project(id, name,description) VALUES (?,?,?)";
-        try (Connection connection = ConnectionService.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, UUID.randomUUID().toString());
-            preparedStatement.setString(2, project.getName());
-            preparedStatement.setString(3, project.getDescription());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void update(Project project) {
-        String query = "UPDATE project SET name=?, description=? WHERE id=?";
-
-        try (Connection connection = ConnectionService.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, project.getName());
-            preparedStatement.setString(2, project.getDescription());
-            preparedStatement.setString(3, project.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -99,12 +72,41 @@ public class ProjectRepository implements GeneralRepository<Project> {
     @Override
     public void delete(String id) {
         String query = "DELETE FROM project WHERE id=?";
-        try (Connection connection = ConnectionService.getConnection(); //установили соединение
-        PreparedStatement preparedStatement = connection.prepareStatement(query)){  //получили обьект для работы с запросами
+        try (Connection connection = ConnectionService.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
-            preparedStatement.setString(1, id); //установили(дали) параметры
-            preparedStatement.execute(); //выполняем запрос
+            preparedStatement.setString(1, id);
+            preparedStatement.execute();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insert(Project project) {
+        String query = "INSERT INTO project(id, name,description) VALUES (?,?,?)";
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setString(2, project.getName());
+            preparedStatement.setString(3, project.getDescription());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update(Project project) {
+        String query = "UPDATE project SET name=?, description=? WHERE id=?";
+
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setString(2, project.getDescription());
+            preparedStatement.setString(3, project.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

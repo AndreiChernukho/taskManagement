@@ -99,12 +99,9 @@
         <url-pattern>/employee</url-pattern>
     </servlet-mapping>
 
-
-
-
     <servlet>
         <servlet-name>settings</servlet-name>
-        <servlet-class>setting.Settings</servlet-class>
+        <servlet-class>setting.SettingsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>settings</servlet-name>

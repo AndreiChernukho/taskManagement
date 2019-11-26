@@ -17,9 +17,3 @@
 </form>
 </body>
 </html>
-
-
-
-<%--private String urlServer; //URL сервера--%>
-<%--private  int maxLine; //Максимальное количество записей в списках--%>
-<%--private int numberOfDays; //Количество дней по умолчанию между начальной и конечной датами в задаче--%>

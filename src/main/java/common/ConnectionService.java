@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Сервис подключения к БД.
+ */
 public class ConnectionService {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String USERNAME = "root";
@@ -17,7 +20,7 @@ public class ConnectionService {
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("Бяда");
+            throw new RuntimeException("Error connecting to database");
         }
     }
 }

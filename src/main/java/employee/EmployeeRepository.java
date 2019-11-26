@@ -8,48 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Репозиторий сотрудников.
+ */
 public class EmployeeRepository implements GeneralRepository<Employee> {
+
     @Override
     public void save(Employee employee) {
         if (employee.getId() == null) {
             insert(employee);
         } else {
             update(employee);
-        }
-    }
-
-    private void insert(Employee employee) {
-        String query = "INSERT INTO employee (id, surname, name, patronymic, position) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-
-            preparedStatement.setString(1, employee.getId() == null ? UUID.randomUUID().toString() : employee.getId());
-            preparedStatement.setString(2, employee.getSurname());
-            preparedStatement.setString(3, employee.getName());
-            preparedStatement.setString(4, employee.getPatronymic());
-            preparedStatement.setString(5, employee.getPosition());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void update(Employee employee) {
-        String query = "UPDATE  employee SET surname = ?, name =? , patronymic = ?, position = ? WHERE id = ?";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-
-            preparedStatement.setString(1, employee.getSurname());
-            preparedStatement.setString(2, employee.getName());
-            preparedStatement.setString(3, employee.getPatronymic());
-            preparedStatement.setString(4, employee.getPosition());
-            preparedStatement.setString(5, employee.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -85,8 +54,8 @@ public class EmployeeRepository implements GeneralRepository<Employee> {
         Employee employee = null;
 
         try (Connection connection = ConnectionService.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -108,15 +77,46 @@ public class EmployeeRepository implements GeneralRepository<Employee> {
     @Override
     public void delete(String id) {
         String query = "DELETE FROM employee WHERE id=?";
-        try (Connection connection = ConnectionService.getConnection(); //установили соединение
-             PreparedStatement preparedStatement = connection.prepareStatement(query)){  //получили обьект для работы с запросами
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
-            preparedStatement.setString(1, id); //установили(дали) параметры
-            preparedStatement.execute(); //выполняем запрос
+            preparedStatement.setString(1, id);
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    private void insert(Employee employee) {
+        String query = "INSERT INTO employee (id, surname, name, patronymic, position) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, employee.getId() == null ? UUID.randomUUID().toString() : employee.getId());
+            preparedStatement.setString(2, employee.getSurname());
+            preparedStatement.setString(3, employee.getName());
+            preparedStatement.setString(4, employee.getPatronymic());
+            preparedStatement.setString(5, employee.getPosition());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update(Employee employee) {
+        String query = "UPDATE  employee SET surname = ?, name =? , patronymic = ?, position = ? WHERE id = ?";
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, employee.getSurname());
+            preparedStatement.setString(2, employee.getName());
+            preparedStatement.setString(3, employee.getPatronymic());
+            preparedStatement.setString(4, employee.getPosition());
+            preparedStatement.setString(5, employee.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

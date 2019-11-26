@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Сервлет просмотра/редактирования проекта
+ */
 public class ProjectServlet extends HttpServlet {
 
     private static final String EDIT_ACTION = "edit";
     private static final String DELETE_ACTION = "delete";
-    private GeneralRepository<Project> repository = new ProjectRepository(); //создан обьект для работы с базой данных
+    private GeneralRepository<Project> repository = new ProjectRepository();
 
 
     @Override
@@ -27,7 +29,7 @@ public class ProjectServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/projectEditPage.jsp").forward(req, resp);
         } else if (DELETE_ACTION.equals(action)) {
             repository.delete(id);
-            resp.sendRedirect("projects"); //обновляем нашу страницу проекта
+            resp.sendRedirect("projects");
         }
 
     }

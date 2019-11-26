@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Сервлет просмотра списков сотрудников.
+ */
 public class EmployeeListServlet extends HttpServlet {
 
     private GeneralRepository<Employee> repository = new EmployeeRepository();
@@ -21,5 +24,4 @@ public class EmployeeListServlet extends HttpServlet {
         req.setAttribute("employees",employees);
         req.getRequestDispatcher("/jsp/employees.jsp").forward(req,resp);
     }
-
 }

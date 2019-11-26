@@ -1,7 +1,5 @@
 package task;
 
-import common.GeneralRepository;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Сервлет для отоброжения страницы списка задач.
+ */
 public class TaskListServlet extends HttpServlet {
 
-    private TaskRepository repository = new TaskRepositoryImpl(); // создаем обьект репозитория для работы с БД
+    private TaskRepository repository = new TaskRepositoryImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

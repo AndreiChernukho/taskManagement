@@ -3,17 +3,38 @@ package task;
 import employee.Employee;
 import project.Project;
 
+/**
+ * Задача.
+ */
 public class Task {
 
+    /**
+     * Идентификатор.
+     */
     private String id;
 
+    /**
+     * Статус.
+     */
     private TaskStatus status;
 
+    /**
+     * Название.
+     */
     private String name;
 
+    /**
+     * Проект.
+     */
     private Project project;
 
+    /**
+     * Сотрудник.
+     */
     private Employee employee;
+
+    public Task() {
+    }
 
     public Task(String id, TaskStatus status, String name, Project project, Employee employee) {
         this.id = id;
@@ -21,10 +42,6 @@ public class Task {
         this.name = name;
         this.project = project;
         this.employee = employee;
-    }
-
-    public Task() {
-
     }
 
     public String getId() {
@@ -67,4 +84,3 @@ public class Task {
         this.employee = employee;
     }
 }
-

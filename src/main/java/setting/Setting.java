@@ -1,10 +1,26 @@
 package setting;
 
+/**
+ * Настройки
+ */
 public class Setting {
+
     private final static String settingId = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    private String urlServer; //URL сервера
-    private int maxLine; //Максимальное количество записей в списках
-    private int numberOfDays; //Количество дней по умолчанию между начальной и конечной датами в задаче
+
+    /**
+     * URL сервера
+     */
+    private String urlServer;
+
+    /**
+     * Максимальное количество записей в списках
+     */
+    private int maxLine;
+
+    /**
+     * Количество дней по умолчанию между начальной и конечной датами в задаче
+     */
+    private int numberOfDays;
 
     public Setting(String urlServer, int maxLine, int numberOfDays) {
 
@@ -37,4 +53,3 @@ public class Setting {
         this.numberOfDays = numberOfDays;
     }
 }
-

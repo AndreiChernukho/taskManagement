@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-public class Settings extends HttpServlet {
+/**
+ * Сервлет для просмотра/редактирования настроек.
+ */
+public class SettingsServlet extends HttpServlet {
 
     private GeneralRepository<Setting> repository = new SettingRepository();
 

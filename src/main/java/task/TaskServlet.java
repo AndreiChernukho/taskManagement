@@ -13,13 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Сервлет для работы с задачами
+ */
 public class TaskServlet extends HttpServlet {
 
     private static final String ADD_ACTION = "add";
     private static final String EDIT_ACTION = "edit";
     private static final String DELETE_ACTION = "delete";
     private static final String PREVIEW_PAGE = "projects";
-    private GeneralRepository<Project> projectRepository = new ProjectRepository(); //создан обьект для работы с базой данных
+    private GeneralRepository<Project> projectRepository = new ProjectRepository();
     private GeneralRepository<Employee> employeeRepository = new EmployeeRepository();
     private GeneralRepository<Task> taskRepository = new TaskRepositoryImpl();
 
@@ -32,8 +35,7 @@ public class TaskServlet extends HttpServlet {
             req.setAttribute("projects", projects);
             List<Employee> employees = employeeRepository.getList();
             req.setAttribute("employees", employees);
-            req.getRequestDispatcher("jsp/taskEditPage.jsp").forward(req, resp);// из реквеста получили реквестдиспетчер
-            // для джсп страницы и вызвали у реквест диспетчера метод ворвард который перенаправил на нужную страницу
+            req.getRequestDispatcher("jsp/taskEditPage.jsp").forward(req, resp);
         } else if (EDIT_ACTION.equals(action)) {
             Task task = taskRepository.get(req.getParameter("id"));
             req.setAttribute("task", task);

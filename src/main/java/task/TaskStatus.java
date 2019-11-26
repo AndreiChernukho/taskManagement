@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Статус задачи.
+ */
 public enum TaskStatus {
 
     /**

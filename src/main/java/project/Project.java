@@ -6,7 +6,7 @@ package project;
 public class Project {
 
     /**
-     * Индентификатор.
+     * Идентификатор.
      */
     private String id;
 

@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Репозиторий для работы с задачами
+ */
 public class TaskRepositoryImpl implements TaskRepository{
 
     private GeneralRepository<Project> projectRepository = new ProjectRepository();
     private GeneralRepository<Employee> employeeRepository = new EmployeeRepository();
-
 
     @Override
     public void save(Task task) {
@@ -25,53 +27,16 @@ public class TaskRepositoryImpl implements TaskRepository{
         } else {
             update(task);
         }
-
-    }
-
-
-    private void insert(Task task) {
-        String query = "INSERT INTO task (id, status, name, project_id, employee_id) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-
-            preparedStatement.setString(1, task.getId() == null ? UUID.randomUUID().toString() : task.getId());
-            preparedStatement.setString(2, task.getStatus().name());
-            preparedStatement.setString(3, task.getName());
-            preparedStatement.setString(4, task.getProject().getId());
-            preparedStatement.setString(5, task.getEmployee().getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void update(Task task) {
-        String query = "UPDATE  task SET status = ?, name =? , project_id = ?, employee_id = ? WHERE id = ?";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-
-            preparedStatement.setString(1, task.getStatus().name());
-            preparedStatement.setString(2, task.getName());
-            preparedStatement.setString(3, task.getProject().getId());
-            preparedStatement.setString(4, task.getEmployee().getId());
-            preparedStatement.setString(5, task.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public List<Task> getList() {
-
         List<Task> tasks = new ArrayList<>();
         String query = "SELECT id, status, name, project_id, employee_id FROM task";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             Statement statement = connection.createStatement()) { //получили обьект, чтобы делать запросы
-            ResultSet resultSet = statement.executeQuery(query); // получили ответ на запрос в виде резалт сета
+        try (Connection connection = ConnectionService.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
                 TaskStatus status = TaskStatus.valueOf(resultSet.getString("status"));
@@ -84,11 +49,9 @@ public class TaskRepositoryImpl implements TaskRepository{
                 Task task = new Task(id, status, name, project, employee);
                 tasks.add(task);
             }
-//
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return tasks;
     }
 
@@ -97,8 +60,8 @@ public class TaskRepositoryImpl implements TaskRepository{
         String query = "SELECT status, name, project_id, employee_id FROM task WHERE id=?";
         Task task = null;
         try (Connection connection = ConnectionService.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -109,12 +72,10 @@ public class TaskRepositoryImpl implements TaskRepository{
                 Project project = projectRepository.get(projectId);
                 Employee employee = employeeRepository.get(employeeId);
                 task = new Task(id, status, name, project, employee);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return task;
     }
 
@@ -138,9 +99,8 @@ public class TaskRepositoryImpl implements TaskRepository{
         List<Task> tasks = new ArrayList<>();
         Project project = projectRepository.get(projectId);
         String query = "SELECT id, status, name, employee_id FROM task WHERE project_id=?";
-        try (Connection connection = ConnectionService.getConnection(); //Получили нонешен
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, projectId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -160,5 +120,37 @@ public class TaskRepositoryImpl implements TaskRepository{
             e.printStackTrace();
         }
         return tasks;
+    }
+
+    private void insert(Task task) {
+        String query = "INSERT INTO task (id, status, name, project_id, employee_id) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, task.getId() == null ? UUID.randomUUID().toString() : task.getId());
+            preparedStatement.setString(2, task.getStatus().name());
+            preparedStatement.setString(3, task.getName());
+            preparedStatement.setString(4, task.getProject().getId());
+            preparedStatement.setString(5, task.getEmployee().getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update(Task task) {
+        String query = "UPDATE  task SET status = ?, name =? , project_id = ?, employee_id = ? WHERE id = ?";
+        try (Connection connection = ConnectionService.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, task.getStatus().name());
+            preparedStatement.setString(2, task.getName());
+            preparedStatement.setString(3, task.getProject().getId());
+            preparedStatement.setString(4, task.getEmployee().getId());
+            preparedStatement.setString(5, task.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
